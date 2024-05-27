@@ -27,6 +27,7 @@ try {
 $data = json_decode(file_get_contents('php://input'), true);
 
 $rand = rand();
+date_default_timezone_set('Asia/Taipei');
 $time = date("Y-m-d H:i:s");
 $total=0;
 
