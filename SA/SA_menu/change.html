@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>修改菜品</title>
+  <link rel="stylesheet" href="change.css">
+</head>
+<body>
+  <h1>修改菜品</h1>
+  <form id="changeForm">
+    <div>
+      <label for="itemclass">類別：</label>
+      <input type="text" id="itemclass" name="itemclass" required>
+    </div>
+    <div>
+      <label for="itemName">菜品名稱：</label>
+      <input type="text" id="itemName" name="itemName" required>
+    </div>
+    <div>
+      <label for="itemPrice">價格：</label>
+      <input type="number" id="itemPrice" name="itemPrice" required>
+    </div>
+    <div>
+      <label for="itemImage">圖片：</label>
+      <input type="file" id="itemImage" name="itemImage" accept="image/*" required>
+    </div>
+    <button type="submit">確定修改</button>
+  </form>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="change.js"></script>
+</body>
+</html>
