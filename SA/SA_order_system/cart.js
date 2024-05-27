@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const checkoutButton = document.getElementById('checkoutButton');
     checkoutButton.addEventListener('click', () => {
+        sendCartToServer();
         alert('感謝您的購買！');
         clearCart();
         window.location.href = 'order.html';
@@ -52,5 +53,13 @@ function clearCart() {
     cart = [];
     localStorage.removeItem('cart');
     updateCartDisplay();
+}
+
+function sendCartToServer() {
+    var cartData = encodeURIComponent(JSON.stringify(cart));
+    fetch('./cart.php?cart=' + cartData)
+        .then(response => response.json())
+        .then(data => console.log('Success:', data))
+        .catch((error) => console.error('Error:', error));
 }
 
