@@ -5,16 +5,16 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Allow-Headers: Content-Type");
 
 $host = 'localhost';
-$db   = 'sa';
+$db = 'sa';
 $user = 's1114580';
 $pass = '1114580';
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 $opt = [
-    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    PDO::ATTR_EMULATE_PREPARES   => false,
+    PDO::ATTR_EMULATE_PREPARES => false,
 ];
 
 try {
@@ -24,20 +24,33 @@ try {
     exit;
 }
 
-$data = json_decode($_GET['cart'], true);
+$data = json_decode(file_get_contents('php://input'), true);
 
+$rand = rand();
+$time = date("Y-m-d H:i:s");
+$total=0;
 
-var_dump($data);
+foreach ($data as $item) {
+        $total += $item["price"]*$item["quantity"];
+ 
+}
 
 foreach ($data as $item) {
     try {
-        $stmt = $pdo->prepare('INSERT INTO cart (name, quantity, price) VALUES (?, ?, ?)');
-        $stmt->execute([$item['name'], $item['quantity'], $item['price']]);
+        $stmt = $pdo->prepare('INSERT INTO cart (id, product, quantity, price) VALUES (?, ?, ?, ?)');
+        $stmt->execute([$rand, $item['name'], $item['quantity'], $item['price'] * $item['quantity']]);
     } catch (PDOException $e) {
         echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
         exit;
     }
 }
 
-echo json_encode(['status' => 'success']);
 
+
+
+    $stmt = $pdo->prepare('INSERT INTO c_order (id, time, price, phone_number) VALUES (?, ?, ?, ?)');
+    $stmt->execute([$rand, $time, $total, null]);
+
+
+echo json_encode(['status' => 'success']);
+?>

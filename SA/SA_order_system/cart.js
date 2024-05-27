@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sendCartToServer();
         alert('感謝您的購買！');
         clearCart();
-        window.location.href = 'order.html';
+        //window.location.href = 'order.html';
     });
 
     const backButton = document.getElementById('backButton');
@@ -56,10 +56,20 @@ function clearCart() {
 }
 
 function sendCartToServer() {
-    var cartData = encodeURIComponent(JSON.stringify(cart));
-    fetch('./cart.php?cart=' + cartData)
-        .then(response => response.json())
-        .then(data => console.log('Success:', data))
-        .catch((error) => console.error('Error:', error));
+    fetch('./cart.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(cart),
+    })
+    .then(response => response.json())
+    .then(data => console.log('Success:', data))
+    .catch((error) => console.error('Error:', error));
+
 }
+
+
+
+
 
