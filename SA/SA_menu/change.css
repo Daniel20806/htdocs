@@ -26,6 +26,13 @@ body {
     margin-bottom: 5px;
   }
   
+  select{
+    width: 103.6%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
   input[type="text"],
   input[type="number"],
   input[type="file"] {

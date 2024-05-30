@@ -1,4 +1,4 @@
-$(document).ready(function() {
+(document).ready(function() {
     const changeForm = document.getElementById('changeForm');
   
     changeForm.addEventListener('submit', function(event) {

@@ -4,8 +4,8 @@ session_start();
 
 // 資料庫連接參數
 $servername = "localhost";
-$username = "root"; 
-$password = "1114576"; 
+$username = "root";
+$password = "1114576";
 $dbname = "sa";
 
 // 創建連接
@@ -34,8 +34,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
-    }else{
-        header("Location: order.html");
+    } else {
+        $sql = "SELECT isBlockList FROM customer WHERE phone_number = '$phone'";
+        $result = $conn->query($sql);
+        $row = $result->fetch_assoc();
+ 
+        if ($row['isBlockList'] == 1) {
+            echo '
+            <script>
+            alert("你已被店家設爲黑名單，禁止點餐！");
+            window.location.href = "enter.html";
+            </script>
+            ';
+
+        } else {
+            header("Location: order.html");
+            exit;
+        }
     }
 }
 

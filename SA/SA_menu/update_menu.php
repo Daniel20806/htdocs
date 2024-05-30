@@ -1,0 +1,28 @@
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "1114576";
+$dbname = "test";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$itemclass = $_POST['itemclass'];
+$itemname = $_POST['itemname'];
+$itemPrice = $_POST['itemPrice'];
+
+$conn->set_charset("utf8");
+$sql = "UPDATE menu SET price = '$itemPrice' WHERE name = '$itemname'";
+$result = $conn->query($sql);
+if ($conn->query($sql) === TRUE) {
+    echo "新記錄創建成功";
+    echo "$sql";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+$conn->close();
+
+?>

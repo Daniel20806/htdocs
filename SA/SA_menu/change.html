@@ -1,34 +1,70 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>修改菜品</title>
   <link rel="stylesheet" href="change.css">
 </head>
+
 <body>
   <h1>修改菜品</h1>
-  <form id="changeForm">
+  <form id="changeForm" action="update_menu.php" method="post" >
     <div>
       <label for="itemclass">類別：</label>
-      <input type="text" id="itemclass" name="itemclass" required>
+      <select id="itemclass" name="itemclass">
+        <option value="set_meal">套餐</option>
+        <option value="burger">漢堡</option>
+        <option value="toast">吐司</option>
+        <option value="snack">點心</option>
+        <option value="drink">飲料</option>
+      </select>
     </div>
+
     <div>
       <label for="itemName">菜品名稱：</label>
-      <input type="text" id="itemName" name="itemName" required>
+      <select id="itemname" name="itemname" required>
+        <option value="" disabled selected hidden>請選擇</option>
+      </select>
     </div>
+
     <div>
       <label for="itemPrice">價格：</label>
       <input type="number" id="itemPrice" name="itemPrice" required>
     </div>
     <div>
       <label for="itemImage">圖片：</label>
-      <input type="file" id="itemImage" name="itemImage" accept="image/*" required>
+      <input type="file" id="itemImage" name="itemImage" accept="image/*">
     </div>
     <button type="submit">確定修改</button>
   </form>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="change.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      fetch('get_menu.php')
+        .then(response => response.json()) // 將 response 轉換為 JSON 格式
+        .then(data => {
+          const menu = data.menu; // 從 JSON 資料中獲取 menu
+
+          menu.forEach(item => {
+            let nameSection = document.getElementById('itemname'); // 取得對應的 itemclass
+
+            const itemOption = document.createElement('option'); // 創建 itemOption
+
+            itemOption.text = `${item.name}`
+            itemOption.value = `${item.name}`
+
+            
+            nameSection.appendChild(itemOption);
+          });
+        })
+        .catch(error => console.error('Error fetching menu:', error));
+    });
+  </script>
+
+
 </body>
+
 </html>
