@@ -1,176 +1,109 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>菜單</title>
-<link rel="stylesheet" href="menu.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>菜單</title>
+  <link rel="stylesheet" href="menu.css">
+  <link rel="stylesheet" href="../SA_order_system/order.css">
 </head>
+
 <body>
-    <div class="menu-container">
+  <div id="menu-container" class="menu-container">
 
-      <div class="menu-item">
-        <img src="image/餐點1.jpeg" alt="菜品圖片">
-        <div class="item-details">
-          <h4>套餐</h4>
-          <h3>炒泡麵套餐</h3>
-          <p>NT$105</p>
-        </div>
-        <div class="item-actions">
-          <button class="btn-edit">修改</button>
-          <button class="btn-delete">刪除</button>
-        </div>
-      </div>
+  </div>
 
-      <div class="menu-item">
-        <img src="image/餐點2.jpeg" alt="菜品圖片">
-        <div class="item-details">
-          <h4>套餐</h4>
-          <h3>蔥抓餅套餐</h3>
-          <p>NT$100</p>
-        </div>
-        <div class="item-actions">
-          <button class="btn-edit">修改</button>
-          <button class="btn-delete">刪除</button>
-        </div>
-      </div>
-
-      <div class="menu-item">
-        <img src="image/餐點3.jpg" alt="菜品圖片">
-        <div class="item-details">
-          <h4>漢堡</h4>
-          <h3>牛肉漢堡</h3>
-          <p>NT$80</p>
-        </div>
-        <div class="item-actions">
-          <button class="btn-edit">修改</button>
-          <button class="btn-delete">刪除</button>
-        </div>
-      </div>
-
-      <div class="menu-item">
-        <img src="image/餐點4.jpg" alt="菜品圖片">
-        <div class="item-details">
-          <h4>漢堡</h4>
-          <h3>卡拉雞腿堡</h3>
-          <p>NT$70</p>
-        </div>
-        <div class="item-actions">
-          <button class="btn-edit">修改</button>
-          <button class="btn-delete">刪除</button>
-        </div>
-      </div>
-
-      <div class="menu-item">
-        <img src="image/餐點5.webp" alt="菜品圖片">
-        <div class="item-details">
-          <h4>吐司</h4>
-          <h3>花生吐司</h3>
-          <p>NT$25</p>
-        </div>
-        <div class="item-actions">
-          <button class="btn-edit">修改</button>
-          <button class="btn-delete">刪除</button>
-        </div>
-      </div>
-
-      <div class="menu-item">
-        <img src="image/餐點6.webp" alt="菜品圖片">
-        <div class="item-details">
-          <h4>吐司</h4>
-          <h3>巧克力吐司</h3>
-          <p>NT$25</p>
-        </div>
-        <div class="item-actions">
-          <button class="btn-edit">修改</button>
-          <button class="btn-delete">刪除</button>
-        </div>
-      </div>
-
-      <div class="menu-item">
-        <img src="image/餐點7.webp" alt="菜品圖片">
-        <div class="item-details">
-          <h4>點心</h4>
-          <h3>薯條</h3>
-          <p>NT$50</p>
-        </div>
-        <div class="item-actions">
-          <button class="btn-edit">修改</button>
-          <button class="btn-delete">刪除</button>
-        </div>
-      </div>
-
-      <div class="menu-item">
-        <img src="image/餐點8.webp" alt="菜品圖片">
-        <div class="item-details">
-          <h4>點心</h4>
-          <h3>雞塊</h3>
-          <p>NT$60</p>
-        </div>
-        <div class="item-actions">
-          <button class="btn-edit">修改</button>
-          <button class="btn-delete">刪除</button>
-        </div>
-      </div>
-
-      <div class="menu-item">
-        <img src="image/餐點9.webp" alt="菜品圖片">
-        <div class="item-details">
-          <h4>飲品</h4>
-          <h3>奶茶</h3>
-          <p>NT$40</p>
-        </div>
-        <div class="item-actions">
-          <button class="btn-edit">修改</button>
-          <button class="btn-delete">刪除</button>
-        </div>
-      </div>
-
-      <div class="menu-item">
-        <img src="image/餐點1.jpeg" alt="菜品圖片">
-        <div class="item-details">
-          <h4>飲品</h4>
-          <h3>紅茶</h3>
-          <p>NT$30</p>
-        </div>
-        <div class="item-actions">
-          <button class="btn-edit">修改</button>
-          <button class="btn-delete">刪除</button>
-        </div>
-      </div>
-    </div>
-    
-    <button class="btn-add">新增</button>
-    <script src="menu.js"></script>
+  <button class="btn-add">新增</button>
+  <script src="menu.js"></script>
 
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        fetch('get_menu.php')
-          .then(response => response.json()) // 將 response 轉換為 JSON 格式
-          .then(data => {
-            const menu = data.menu; // 從 JSON 資料中獲取 menu
-  
-            menu.forEach(item => {
-              const itemDiv = document.createElement('div');
-              itemDiv.classList.add('menu-item');
-              
-              let nameSection = document.getElementById('itemname'); // 取得對應的 itemclass
-  
-              const itemOption = document.createElement('option'); // 創建 itemOption
-  
-              itemOption.text = `${item.name}`
-              itemOption.value = `${item.name}`
-  
-              
-              nameSection.appendChild(itemOption);
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      fetch('get_menu.php')
+        .then(response => response.json()) // 將 response 轉換為 JSON 格式
+        .then(data => {
+          const menu = data.menu; // 從 JSON 資料中獲取 menu
+          menu.forEach(item => {
+            const menuContainer = document.getElementById('menu-container');
+            const menuItem = document.createElement('div');
+            menuItem.classList.add('menu-item');
+            //圖片
+            const img = document.createElement('img');
+            img.src = 'logo.png';
+            img.alt = '菜品圖片';
+            menuItem.appendChild(img);
+
+            // 創建並添加菜品資訊
+            const itemDetails = document.createElement('div');
+            itemDetails.classList.add('item-details');
+            menuItem.appendChild(itemDetails);
+
+            // 添加菜品分類
+            const title = document.createElement('h4');
+            switch (item.category) {
+              case 'drink':
+                title.textContent = '飲料';
+                break;
+              case 'snack':
+                title.textContent = '點心';
+                break;
+              case 'toast':
+                title.textContent = '吐司';
+                break;
+              case 'set_meal':
+                title.textContent = '套餐';
+                break;
+              case 'burger':
+                title.textContent = '漢堡';
+                break;
+            }
+            itemDetails.appendChild(title);
+
+
+            // 添加菜品名稱
+            const name = document.createElement('h3');
+            name.textContent = `${item.name}`;
+            itemDetails.appendChild(name);
+
+            // 添加價格
+            const priceTag = document.createElement('p');
+            priceTag.textContent = `NT$${item.price}`;
+            itemDetails.appendChild(priceTag);
+
+            // 創建並添加按鈕容器
+            const itemActions = document.createElement('div');
+            itemActions.classList.add('item-actions');
+            menuItem.appendChild(itemActions);
+
+            // 添加修改按鈕
+            const editButton = document.createElement('button');
+            editButton.classList.add('btn-edit');
+            editButton.textContent = '修改';
+            editButton.addEventListener('click', function () {
+              window.location.href = 'change.html';
             });
-          })
-          .catch(error => console.error('Error fetching menu:', error));
-      });
-    </script>
-</body>
-</html>
-  
- 
+            itemActions.appendChild(editButton);
 
+            // 添加刪除按鈕
+            const deleteButton = document.createElement('button');
+            deleteButton.classList.add('btn-delete');
+            deleteButton.textContent = '刪除';
+            deleteButton.addEventListener('click', function () {
+              const confirmed = confirm('確定要刪除這個菜品嗎？');
+              if (confirmed) {
+                menuItem.remove(); // 刪除該項目
+              }
+            });
+            itemActions.appendChild(deleteButton);
+
+            // 將菜單項目添加到菜單容器中
+            menuContainer.appendChild(menuItem);
+          });
+        })
+        .catch(error => console.error('Error fetching menu:', error));
+    });
+  </script>
+</body>
+
+</html>

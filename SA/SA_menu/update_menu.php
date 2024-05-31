@@ -17,12 +17,7 @@ $itemPrice = $_POST['itemPrice'];
 $conn->set_charset("utf8");
 $sql = "UPDATE menu SET price = '$itemPrice' WHERE name = '$itemname'";
 $result = $conn->query($sql);
-if ($conn->query($sql) === TRUE) {
-    echo "新記錄創建成功";
-    echo "$sql";
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
 $conn->close();
-
+header('Location: menu.html');
+exit();
 ?>
