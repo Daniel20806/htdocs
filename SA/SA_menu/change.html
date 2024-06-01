@@ -10,7 +10,7 @@
 
 <body>
   <h1>修改菜品</h1>
-  <form id="changeForm" action="update_menu.php" method="post" >
+  <form id="changeForm" action="update_menu.php" method="post">
     <div>
       <label for="itemclass">類別：</label>
       <select id="itemclass" name="itemclass">
@@ -24,9 +24,7 @@
 
     <div>
       <label for="itemName">菜品名稱：</label>
-      <select id="itemname" name="itemname" required>
-        <option value="" disabled selected hidden>請選擇</option>
-      </select>
+      <input type="text" id="itemname" name="itemname" required>
     </div>
 
     <div>
@@ -42,28 +40,32 @@
 
 
   <script>
+    function getUrlParams() {
+      const params = new URLSearchParams(window.location.search);
+      return {
+        category: params.get('category'),
+        name: params.get('name'),
+        price: params.get('price')
+      };
+    }
+
+    // Set form default values based on URL parameters
     document.addEventListener('DOMContentLoaded', function () {
-      fetch('get_menu.php')
-        .then(response => response.json()) // 將 response 轉換為 JSON 格式
-        .then(data => {
-          const menu = data.menu; // 從 JSON 資料中獲取 menu
+      const params = getUrlParams();
 
-          menu.forEach(item => {
-            let nameSection = document.getElementById('itemname'); // 取得對應的 itemclass
+      if (params.category) {
+        document.querySelector('select[name="itemclass"]').value = params.category;
+      }
 
-            const itemOption = document.createElement('option'); // 創建 itemOption
+      if (params.name) {
+        document.querySelector('input[name="itemname"]').value = params.name;
+      }
 
-            itemOption.text = `${item.name}`
-            itemOption.value = `${item.name}`
-
-            
-            nameSection.appendChild(itemOption);
-          });
-        })
-        .catch(error => console.error('Error fetching menu:', error));
+      if (params.price) {
+        document.querySelector('input[name="itemPrice"]').value = params.price;
+      }
     });
   </script>
-
 
 </body>
 

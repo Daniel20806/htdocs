@@ -50,6 +50,20 @@ main {
     position: relative;
 }
 
+.soldOutButton {
+    padding: 5px 10px;
+    background-color: grey;
+    color: white;
+    border: none;
+    cursor: not-allowed;
+    position: absolute;
+    right: 800px; 
+    top: 50%;
+    transform: translateY(-50%); 
+    min-width: 100px;
+    font-size: 15px;
+}
+
 .addToOrderButton {
     padding: 5px 10px;
     background-color: #46ff83;
@@ -132,3 +146,4 @@ footer {
 #checkoutButton:hover{
     background-color: #9eff03;
 }
+

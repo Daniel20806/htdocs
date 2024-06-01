@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>菜單</title>
   <link rel="stylesheet" href="menu.css">
-  <link rel="stylesheet" href="../SA_order_system/order.css">
 </head>
 
 <body>
@@ -14,8 +13,7 @@
 
   </div>
 
-  <button class="btn-add">新增</button>
-  <script src="menu.js"></script>
+  <button class="btn-add" onclick="location.href='add.html';">新增</button>
 
 
   <script>
@@ -81,7 +79,7 @@
             editButton.classList.add('btn-edit');
             editButton.textContent = '修改';
             editButton.addEventListener('click', function () {
-              window.location.href = 'change.html';
+              window.location.href = `change.html?category=${item.category}&name=${item.name}&price=${item.price}`;
             });
             itemActions.appendChild(editButton);
 
@@ -89,10 +87,13 @@
             const deleteButton = document.createElement('button');
             deleteButton.classList.add('btn-delete');
             deleteButton.textContent = '刪除';
+            deleteButton.setAttribute('data-id', item.name);
             deleteButton.addEventListener('click', function () {
               const confirmed = confirm('確定要刪除這個菜品嗎？');
               if (confirmed) {
-                menuItem.remove(); // 刪除該項目
+                // 發送 AJAX 請求到服務器以刪除菜品
+                var itemId = this.getAttribute('data-id');
+                deleteItem(itemId);
               }
             });
             itemActions.appendChild(deleteButton);
@@ -103,6 +104,19 @@
         })
         .catch(error => console.error('Error fetching menu:', error));
     });
+    function deleteItem(itemId) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', 'delete_menu.php', true);
+      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          console.log(xhr.responseText);
+          // 在這裡處理 PHP 回應，可以更新頁面或顯示提示
+          location.reload();
+        }
+      };
+      xhr.send('id=' + itemId);
+    }
   </script>
 </body>
 

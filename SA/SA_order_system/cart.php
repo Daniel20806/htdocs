@@ -46,11 +46,12 @@ foreach ($data as $item) {
     }
 }
 
-
-
+    session_start();
+    $phone = $_SESSION['phone'];
+    //$phone = $_COOKIE('phone');
 
     $stmt = $pdo->prepare('INSERT INTO c_order (id, time, price, phone_number) VALUES (?, ?, ?, ?)');
-    $stmt->execute([$rand, $time, $total, null]);
+    $stmt->execute([$rand, $time, $total, $phone]);
 
 
 echo json_encode(['status' => 'success']);

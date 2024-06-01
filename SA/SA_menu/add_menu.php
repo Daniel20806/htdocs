@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "1114576";
-$dbname = "test";
+$dbname = "sa";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -20,7 +20,8 @@ $sql = "SELECT * FROM menu WHERE name='$itemName'";
     if ($result->num_rows === 0) {
         $sql = "INSERT INTO menu (category, name, price) VALUES ('$category', '$itemName', '$itemPrice')";
         if ($conn->query($sql) === TRUE) {
-            echo "新記錄創建成功";
+            header('Location: menu.html');
+            exit();
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }

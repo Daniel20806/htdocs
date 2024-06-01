@@ -30,6 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "INSERT INTO customer(phone_number) values ('$phone')";
         if ($conn->query($sql) === TRUE) {
             echo "新記錄創建成功";
+            $_SESSION['phone'] = "$phone";
             header("Location: order.html");
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
@@ -48,6 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ';
 
         } else {
+            $_SESSION['phone'] = "$phone";
             header("Location: order.html");
             exit;
         }

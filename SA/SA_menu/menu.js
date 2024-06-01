@@ -20,11 +20,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       });
     });
-  
-    addButton.addEventListener('click', function() {
-      // 在這裡處理新增按鈕的點擊事件
-      window.location.href = 'add.html';
-    });
   });
   
   
