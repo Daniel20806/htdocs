@@ -132,8 +132,8 @@
     </script>-->
     <?php
     $servername = "localhost";
-    $username = "s1114580";
-    $password = "1114580";
+    $username = "root";
+    $password = "1114576";
     $dbname = "sa";
 
     $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);

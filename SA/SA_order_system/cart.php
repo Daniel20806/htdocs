@@ -6,8 +6,8 @@ header("Access-Control-Allow-Headers: Content-Type");
 
 $host = 'localhost';
 $db = 'sa';
-$user = 's1114580';
-$pass = '1114580';
+$user = 'root';
+$pass = '1114576';
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
