@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +11,9 @@
             padding: 0;
             font-family: Arial, sans-serif;
         }
-        .header {     /* 背景 */
+
+        .header {
+            /* 背景 */
             background-color: rgb(223, 107, 29);
             height: 80px;
             width: 100%;
@@ -19,20 +22,23 @@
             align-items: center;
             justify-content: space-between;
             color: white;
-            font-size: 1.5em; 
+            font-size: 1.5em;
             font-weight: bold;
-            padding-left: 20px; 
+            padding-left: 20px;
             box-sizing: border-box;
         }
+
         .container {
             padding: 20px;
         }
+
         .search-bar {
             width: 75%;
             margin: 20px auto;
             display: flex;
             justify-content: center;
         }
+
         .search-bar input {
             width: 100%;
             padding: 10px;
@@ -41,130 +47,188 @@
             border-radius: 4px;
             box-sizing: border-box;
         }
+
         table {
             width: 75%;
             margin: 0 auto;
             border-collapse: collapse;
         }
-        th, td {
+
+        th,
+        td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: center;
         }
+
         th {
             background-color: #f2f2f2;
             font-weight: bold;
         }
+
         .back {
             position: fixed;
             top: 20px;
             right: 40px;
         }
+
+        .left {
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .right {
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .flex-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-btn {
+            background-color: rgb(223, 107, 29);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .form-btn-red {
+            background-color: red;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .form-btn:hover {
+            background-color: rgb(240, 131, 58);
+        }
+
+        .form-btn-red:hover {
+            background-color: rgb(255, 105, 97);
+        }
     </style>
 </head>
+
 <body>
+
     <div class="header">客戶明細</div>
     <a class="back" href="main.html"><img width="50" height="50" src="./image/home.png" alt="返回首頁"></a>
     <div class="container">
+
         <form action="./detail_more.php" method="get">
-        <div class="search-bar">
-            <input type="text" name = "id" id="searchInput" onkeyup="filterTable()" placeholder="請輸入訂單編號查詢...">
-            <button type="submit">搜尋</button>
-        </div>
+            <div class="search-bar">
+                <input type="text" name="id" id="searchInput" onkeyup="filterTable()" placeholder="請輸入訂單編號查詢...">
+                <button type="submit">搜尋</button>
+            </div>
         </form>
-        <!--<table id="detailsTable">
-            <thead>
-                <tr>
-                    <th>訂單編號</th>
-                    <th>餐點編號</th>
-                    <th>數量</th>
-                    <th>訂單日期</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>001</td>
-                    <td>A01</td>
-                    <td>2</td>
-                    <td>2023-01-01</td>
-                </tr>
-                <tr>
-                    <td>002</td>
-                    <td>B02</td>
-                    <td>1</td>
-                    <td>2023-01-02</td>
-                </tr>
-                <tr>
-                    <td>003</td>
-                    <td>C03</td>
-                    <td>3</td>
-                    <td>2023-01-03</td>
-                </tr>
-                <tr>
-                    <td>004</td>
-                    <td>D04</td>
-                    <td>4</td>
-                    <td>2023-01-04</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+        <div class="flex-container">
+            <div class="left">
+                <h2>進行中訂單</h2>
 
-    <script>
-        function filterTable() {
-            const input = document.getElementById('searchInput');
-            const filter = input.value.toUpperCase();
-            const table = document.getElementById('detailsTable');
-            const tr = table.getElementsByTagName('tr');
+                <?php
+                $servername = "localhost";
+                $username = "root";
+                $password = "1114576";
+                $dbname = "sa";
 
-            for (let i = 1; i < tr.length; i++) {
-                const td = tr[i].getElementsByTagName('td')[0];
-                if (td) {
-                    const txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = '';
-                    } else {
-                        tr[i].style.display = 'none';
+                $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+                if (isset($_GET["orderId"]) && !empty($_GET["orderId"])) {
+                    $orderId = $_GET["orderId"];
+                    $sql = "UPDATE c_order SET isCheck = 1 WHERE id = $orderId";
+                    $stmt = $pdo->query($sql);
+
+                    //清除頁面緩存
+                    header("Location: " . $_SERVER['PHP_SELF']);
+                }
+                $sql = "SELECT * FROM c_order ORDER BY time";
+                $stmt = $pdo->query($sql);
+
+                $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                echo "<table>";
+                echo "<thead>";
+                echo "<tr>";
+                echo "<th>訂單編號</th>";
+                echo "<th>訂單時間</th>";
+                echo "<th>總金額</th>";
+                echo "<th>電話</th>";
+                echo "<th>訂單細節</th>";
+                echo "<th>完成訂單</th>";
+                echo "</tr>";
+                echo "</thead>";
+                echo "<tbody>";
+
+                foreach ($results as $row) {
+                    if ($row["isCheck"] == 0) {
+                        echo "<tr>";
+                        echo "<td>" . $row['id'] . "</td>";
+                        echo "<td>" . $row['time'] . "</td>";
+                        echo "<td>" . $row['price'] . "</td>";
+                        echo "<td>" . $row['phone_number'] . "</td>";
+                        echo "<td><form action='./detail_more.php' method='get'><input type='hidden' name='id' value='" . $row['id'] . "'><input type='submit' class='form-btn' value='訂單細節'></form></td>";
+                        echo "<td><form action='./detail.php' method='get'><input type='hidden' name='orderId' value='" . $row['id'] . "'><input type='submit' class='form-btn-red' value='標記為歷史訂單'></form></td>";
+                        echo "</tr>";
                     }
                 }
-            }
-        }
-    </script>-->
-    <?php
-    $servername = "localhost";
-    $username = "root";
-    $password = "1114576";
-    $dbname = "sa";
 
-    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+                echo "</tbody>";
+                echo "</table>";
+                ?>
+            </div>
+            <div class="right">
+                <h2>歷史訂單</h2>
+                <?php
+                $sql = "SELECT * FROM c_order ORDER BY time";
+                $stmt = $pdo->query($sql);
 
-    $sql = "SELECT * FROM c_order";
-    $stmt = $pdo->query($sql);
+                $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                echo "<table>";
+                echo "<thead>";
+                echo "<tr>";
+                echo "<th>訂單編號</th>";
+                echo "<th>訂單時間</th>";
+                echo "<th>訂單金額</th>";
+                echo "</tr>";
+                echo "</thead>";
+                echo "<tbody>";
 
-    echo "<table>";
-    echo "<thead>";
-    echo "<tr>";
-    echo "<th>訂單編號</th>";
-    echo "<th>訂單時間</th>";
-    echo "<th>總金額</th>";
-    echo "<th>電話</th>";
-    echo "</tr>";
-    echo "</thead>";
-    echo "<tbody>";
+                foreach ($results as $row) {
+                    if ($row["isCheck"] == 1) {
+                        echo "<tr>";
+                        echo "<td>" . $row['id'] . "</td>";
+                        echo "<td>" . $row['time'] . "</td>";
+                        echo "<td>" . $row['price'] . "</td>";
+                        echo "</tr>";
+                    }
+                }
+                ?>
+            </div>
+        </div>
 
-    foreach ($results as $row) {
-        echo "<tr>";
-        echo "<td>" . $row['id'] . "</td>";
-        echo "<td>" . $row['time'] . "</td>";
-        echo "<td>" . $row['price'] . "</td>";
-        echo "<td>" . $row['phone_number'] . "</td>";
-        echo "</tr>";
-    }
 
-    echo "</tbody>";
-    echo "</table>";
-    ?>
 </body>
+
 </html>

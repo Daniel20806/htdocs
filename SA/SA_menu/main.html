@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,9 +12,12 @@
             display: flex;
             flex-direction: column;
             height: 100vh;
-            font-size: 18px; /* 設定全局字體大小 */
+            font-size: 18px;
+            /* 設定全局字體大小 */
         }
-        .header {     /* 背景 */
+
+        .header {
+            /* 背景 */
             background-color: rgb(223, 107, 29);
             height: 60px;
             width: 100%;
@@ -21,56 +25,77 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            color: white;  /*字體顏色*/
-            font-size: 1.5em; 
+            color: white;
+            /*字體顏色*/
+            font-size: 1.5em;
             font-weight: bold;
-            padding: 0 20px; 
+            padding: 0 20px;
         }
+
         .header .title {
             display: flex;
             align-items: center;
         }
+
         .header .title button {
-            margin-left: 10px; /* Adjust space between title and button */
+            margin-left: 10px;
+            /* Adjust space between title and button */
         }
+
         .container {
             display: flex;
             flex: 1;
             flex-wrap: wrap;
         }
-        .block {           /*four functions design*/
-            flex: 1 0 50%; /* Allows the blocks to take up 50% of the container's width */
+
+        .block {
+            /*four functions design*/
+            flex: 1 0 50%;
+            /* Allows the blocks to take up 50% of the container's width */
             display: flex;
             align-items: center;
             justify-content: center;
             background-color: #d87c0b;
-            color: white; /*字體顏色*/
+            color: white;
+            /*字體顏色*/
             cursor: pointer;
-            font-size: 1.2em; 
-            font-weight: bold; /*粗體*/
+            font-size: 1.2em;
+            font-weight: bold;
+            /*粗體*/
             transition: background-color 0.3s;
-            border: none; /* 移除邊界 */
+            border: none;
+            /* 移除邊界 */
             user-select: none;
-            height: calc(50vh - 30px); /* Adjust height to fit within the viewport */
+            height: calc(50vh - 30px);
+            /* Adjust height to fit within the viewport */
         }
+
         .block:hover {
             background-color: #bf6b0a;
         }
+
         .block:active {
             background-color: #a85a08;
         }
-        .settin_big, .settin_small {                           /*setting bottom*/
-            background-color: transparent; /*透明*/
+
+        .settin_big,
+        .settin_small {
+            /*setting bottom*/
+            background-color: transparent;
+            /*透明*/
             border: none;
             cursor: pointer;
             border-radius: 2px 2px;
             font-size: 0.5em;
             transition: background-color 0.3s;
         }
-        .settin_big:hover, .settin_small:hover {
+
+        .settin_big:hover,
+        .settin_small:hover {
             background-color: #cfcd4c;
-            color: rgb(250,250,250);
+            color: rgb(250, 250, 250);
         }
+
         .cirs {
             box-sizing: border-box;
             width: 70px;
@@ -79,10 +104,14 @@
             border-radius: 20px;
             background-color: #eee;
             border: 2px solid #ccc;
-            position: absolute; /* Positioning the switch button absolutely */
-            top: 10px; /* Distance from the top of the window */
-            right: 10px; /* Distance from the right of the window */
+            position: absolute;
+            /* Positioning the switch button absolutely */
+            top: 10px;
+            /* Distance from the top of the window */
+            right: 10px;
+            /* Distance from the right of the window */
         }
+
         .circle {
             position: relative;
             width: 32px;
@@ -92,27 +121,58 @@
             margin-left: 0;
             cursor: pointer;
         }
+
         .is-active.cirs {
             background-color: Honeydew;
             border-color: rgb(228, 210, 45);
         }
+
         .is-active .circle {
             background-color: rgb(228, 210, 45);
             margin-left: calc(100% - 32px);
         }
-        .is-active.cirs, .is-active .circle {
+
+        .is-active.cirs,
+        .is-active .circle {
             transition: all .3s;
+        }
+
+        #busyButton.busy {
+            background-color: red;
+        }
+
+        #busyButton {
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+
+        #busyButton:hover {
+            background-color: darkgreen;
+        }
+
+        #busyButton.busy:hover {
+            background-color: darkred;
         }
     </style>
 </head>
+
 <body>
     <div class="header">
         <div class="title">
             食六早午餐機台主選單
-            <button class="settin_big" onclick="changeFontSize('big')"><img width="35" height="35" src="./image/a.png"/></button>
-            <button class="settin_small" onclick="changeFontSize('small')"><img width="30" height="30" src="./image/a.png"/></button>
+            <button id="busyButton">閒置中</button>
+            <button class="settin_big" onclick="changeFontSize('big')"><img width="35" height="35"
+                    src="./image/a.png" /></button>
+            <button class="settin_small" onclick="changeFontSize('small')"><img width="30" height="30"
+                    src="./image/a.png" /></button>
         </div>
-        <div id="cirs" class="cirs">  <!--編輯on&off-->
+        <div id="cirs" class="cirs"> <!--編輯on&off-->
             <div class="circle" onclick="toggle()"></div>
         </div>
     </div>
@@ -122,7 +182,7 @@
         <div class="block" draggable="false" id="block3" onclick="location.href='customer.php'">顧客管理</div>
         <div class="block" draggable="false" id="block4" onclick="location.href='incoming.php'">進貨管理</div>
     </div>
-    
+
 
     <script>
         function toggle() {
@@ -188,6 +248,32 @@
         document.querySelectorAll('.block').forEach(block => {
             block.setAttribute('data-href', block.getAttribute('onclick').replace('location.href=', '').replace(/'/g, ''));
         });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var busyButton = document.getElementById('busyButton');
+            busyButton.addEventListener('click', function () {
+                if (busyButton.classList.toggle('busy')) {
+                    busyButton.textContent = '忙碌中';
+                    updateDatabase('1');
+                } else {
+                    busyButton.textContent = '閒置中';
+                    updateDatabase('0');
+                }
+            });
+
+            function updateDatabase(status) {
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'updateStatus.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        console.log('Database updated successfully');
+                    }
+                };
+                xhr.send(JSON.stringify({ status: status }));
+            }
+        });
     </script>
 </body>
+
 </html>

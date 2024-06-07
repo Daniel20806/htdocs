@@ -1,5 +1,5 @@
 let cart = [];
-
+//把物件(餐點 包含name price quantity)加入localstorage cart裡面
 function addToOrder(name, price) {
     const existingItem = cart.find(item => item.name === name);
 
@@ -8,11 +8,12 @@ function addToOrder(name, price) {
     } else {
         cart.push({ name: name, price: price, quantity: 1 });
     }
-
+    //同步更新購物車資訊
     updateCartDisplay();
+
     saveCartToStorage();
 }
-
+//同步更新購物車資訊
 function updateCartDisplay() {
     const cartItems = document.getElementById('cartItems');
     const totalPrice = document.getElementById('totalPrice');
@@ -38,11 +39,13 @@ function saveCartToStorage() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const cartButton = document.getElementById('cartButton');
+    //暫無功用
+    /* const cartButton = document.getElementById('cartButton');
     cartButton.addEventListener('click', () => {
         document.getElementById('cartContainer').style.display = 'block';
-    });
+    }); */
 
+    //檢查購物車是否是空的
     const checkoutButton = document.getElementById('checkoutButton');
     checkoutButton.addEventListener('click', () => {
         if (cart.length > 0) {
@@ -51,8 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('購物車是空的，無法結帳。');
         }
     });
-
-    loadCartFromStorage();
+    //刷新網頁無法清空購物車
+    //loadCartFromStorage();
 });
 
 function loadCartFromStorage() {
@@ -63,7 +66,7 @@ function loadCartFromStorage() {
         updateCartDisplay();
     }
 }
-
+//增加餐點按鈕
 function increaseQuantity(name) {
     const item = cart.find(item => item.name === name);
     if (item) {
@@ -72,7 +75,7 @@ function increaseQuantity(name) {
         saveCartToStorage();
     }
 }
-
+//減少餐點按鈕
 function decreaseQuantity(name) {
     const item = cart.find(item => item.name === name);
     if (item && item.quantity > 1) {
@@ -85,7 +88,7 @@ function decreaseQuantity(name) {
         saveCartToStorage();
     }
 }
-
+//點擊分類快速移動至該分類
 function scrollToCategory(categoryId) {
     const categorySection = document.getElementById(categoryId);
     if (categorySection) {
@@ -93,4 +96,15 @@ function scrollToCategory(categoryId) {
     }
 }
 
+function updateTime() {
+    const timeElement = document.getElementById('time');
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    timeElement.textContent = `${hours}:${minutes}:${seconds}`;
+}
 
+// 初始化並設置每秒更新一次
+updateTime();
+setInterval(updateTime, 1000);

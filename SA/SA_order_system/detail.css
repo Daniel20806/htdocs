@@ -16,6 +16,11 @@ main {
     padding: 20px;
 }
 
+h2{
+    position: relative;
+    
+}
+
 #cartContainer {
     background-color: white;
     padding: 20px;
@@ -35,30 +40,23 @@ main {
     border-bottom: 1px solid #ddd;
 }
 
+#pickuptime{
+    list-style-type: none;
+    padding: 0;
+}
+
+#pickuptime li {
+    padding: 10px;
+    font-size: larger;
+}
+
 #totalPrice {
     font-weight: bold;
     text-align: right;
     padding: 10px;
 }
 
-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin: 10px 0;
-    cursor: pointer;
-    border-radius: 5px;
-}
 
-button:hover {
-    background-color: #45a049;
-}
-
-button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
 
 footer {
     background-color: #4CAF50;
@@ -70,17 +68,16 @@ footer {
     bottom: 0;
 }
 
-
 .time {
     font-size: 18px;
-    color: #05101c;
-    background-color: #fff0f5;
+    color: #05101c; 
+    background-color: #fff0f5; 
     padding: 10px 15px;
-    border: 2px solid #fec252;
-    border-radius: 15px;
+    border: 2px solid #fec252; 
+    border-radius: 15px; /* 圓角 */
     font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
     position: absolute;
 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 輕微陰影 */
 }
 

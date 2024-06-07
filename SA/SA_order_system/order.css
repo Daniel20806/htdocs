@@ -1,5 +1,4 @@
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     display: flex;
@@ -50,9 +49,9 @@ main {
     position: relative;
 }
 
-.soldOutButton {
+.soldOutButton{
     padding: 5px 10px;
-    background-color: grey;
+    background-color: gray;
     color: white;
     border: none;
     cursor: not-allowed;
@@ -62,11 +61,12 @@ main {
     transform: translateY(-50%); 
     min-width: 100px;
     font-size: 15px;
+    border-radius: 15px;
 }
 
 .addToOrderButton {
     padding: 5px 10px;
-    background-color: #46ff83;
+    background-color: #ecd97c;
     color: rgb(0, 0, 0);
     border: none;
     cursor: pointer;
@@ -76,15 +76,13 @@ main {
     transform: translateY(-50%); 
     min-width: 100px;
     font-size: 15px;
+    border-radius: 15px;
 }
 
-.addToOrderButton:hover{
-    background-color: #07ff03;
-}
 
 .incrementButton {
     padding: 5px 10px;
-    background-color: #FFC107;
+    background-color: #ecd97c;
     color: rgb(0, 0, 0);
     border: none;
     cursor: pointer;
@@ -94,11 +92,12 @@ main {
     transform: translateY(-50%); 
     min-width: 50px;
     font-size: 15px;
+    border-radius: 15px;
 }
 
 .decrementButton {
     padding: 5px 10px;
-    background-color: #FFC107;
+    background-color: #ecd97c;
     color: rgb(0, 0, 0);
     border: none;
     cursor: pointer;
@@ -108,13 +107,12 @@ main {
     transform: translateY(-50%); /* 垂直居中 */
     min-width: 50px; /* 设置按钮的最小宽度 */
     font-size: 15px; /* 设置字体大小 */
+    border-radius: 15px;
 }
-
-
 
 .incrementButton:hover,
 .decrementButton:hover {
-    background-color: #ffff03;
+    background-color: #f0e36e;
 }
 
 
@@ -136,14 +134,44 @@ footer {
 
 #checkoutButton {
     padding: 10px 15px;
-    background-color: #61df65;
+    background-color: #ecd97c;
     color: rgb(0, 0, 0);
     border: none;
     cursor: pointer;
     margin-top: 10px;
+    border-radius: 15px;
 }
 
 #checkoutButton:hover{
-    background-color: #9eff03;
+    background-color: #f0e36e;
 }
 
+.time {
+    font-size: 18px;
+    color: #05101c; 
+    background-color: #fff0f5; 
+    padding: 10px 15px;
+    border: 2px solid #fec252; 
+    border-radius: 15px; /* 圓角 */
+    font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+    position: absolute;
+    top: 20px;
+    left: 270px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 輕微陰影 */
+}
+
+.back-to-top {
+    background-color: #fbde86; 
+    color: white; /* 白色文字 */
+    border: none; /* 無邊框 */
+    padding: 10px 15px; /* 內邊距 */
+    border-radius: 50%; /* 圓形按鈕 */
+    font-size: 16px; /* 字體大小 */
+    font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 輕微陰影 */
+    transition: opacity 0.3s; /* 過渡效果 */
+}
+
+.back-to-top:hover {
+    background-color: #fee87a; 
+}
