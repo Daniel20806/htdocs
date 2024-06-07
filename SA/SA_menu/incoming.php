@@ -135,7 +135,7 @@ if (isset($_GET["foodName"]) && !empty($_GET["foodName"]) && isset($_GET["addNum
 
 
     if ($result && $result['name'] == $foodName) {
-        $sql = "UPDATE food SET quantity = quantity + ? WHERE name = ?";
+        $sql = "UPDATE food SET quantity = ? WHERE name = ?";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$addNumber, $foodName]);
 
@@ -170,7 +170,7 @@ if (isset($_GET["foodName"]) && !empty($_GET["foodName"]) && isset($_GET["addNum
                     <label for="foodName">食材名稱：</label>
                     <input type="text" name="foodName" id="foodName" required>
 
-                    <label for="addNumber">新增數量：</label>
+                    <label for="addNumber">修改數量：</label>
                     <input type="number" name="addNumber" id="addNumber" min="0" required>
 
                     <!--<label for="addDate">新增日期：</label>

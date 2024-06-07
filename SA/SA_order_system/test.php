@@ -7,7 +7,7 @@ $dbname = "sa";
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+    
     // 獲取菜單
     $stmt = $conn->prepare("SELECT category, name, price FROM menu");
     $stmt->execute();

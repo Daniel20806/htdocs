@@ -155,9 +155,30 @@
 
                 $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
                 if (isset($_GET["orderId"]) && !empty($_GET["orderId"])) {
+                    //移入歷史訂單
                     $orderId = $_GET["orderId"];
                     $sql = "UPDATE c_order SET isCheck = 1 WHERE id = $orderId";
                     $stmt = $pdo->query($sql);
+                    
+                    //扣除庫存
+                    $sql = "SELECT product, quantity FROM cart WHERE id = '$orderId'";
+                    $stmt = $pdo->query($sql);
+                    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    
+                    //雙重回圈讀取資料並修改數量
+                    foreach ($results as $result) {
+                        $fname = $result["product"];
+                        $fquantity = $result["quantity"];
+                        $sql = "SELECT composition, quantity FROM menu_composition WHERE name = '$fname'";
+                        $stmt = $pdo->query($sql);
+                        $results2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                        foreach ($results2 as $result2) {
+                            $fname2 = $result2["composition"];
+                            $fquantity2 = $result2["quantity"];
+                            $sql = "UPDATE food SET quantity = quantity - ('$fquantity' * '$fquantity2') WHERE name = '$fname2' ";
+                            $stmt = $pdo->query($sql);
+                        }
+                    }
 
                     //清除頁面緩存
                     header("Location: " . $_SERVER['PHP_SELF']);
