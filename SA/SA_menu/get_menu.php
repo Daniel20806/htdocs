@@ -21,7 +21,8 @@ if ($result->num_rows > 0) {
         $menu[] = [
             'category' => $row["category"],
             'name' => $row["name"],
-            'price' => $row["price"]
+            'price' => $row["price"],
+            'image_path' => $row["image_path"]
         ];
     }
 }

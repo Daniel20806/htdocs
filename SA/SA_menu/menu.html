@@ -28,7 +28,11 @@
             menuItem.classList.add('menu-item');
             //圖片
             const img = document.createElement('img');
-            img.src = 'logo.png';
+            
+            img.src = `${item.image_path}`;
+            if(img.src == 'http://192.168.1.111:11451/SA/SA_menu/image/'){
+              img.src = `./image/upload.jpg`;
+            }
             img.alt = '菜品圖片';
             menuItem.appendChild(img);
 

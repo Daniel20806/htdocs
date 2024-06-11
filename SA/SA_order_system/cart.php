@@ -53,6 +53,29 @@ foreach ($data as $item) {
     $stmt = $pdo->prepare('INSERT INTO c_order (id, time, price, phone_number) VALUES (?, ?, ?, ?)');
     $stmt->execute([$rand, $time, $total, $phone]);
 
+    $orderId = $rand;   
+
+    //扣除庫存
+    $sql = "SELECT product, quantity FROM cart WHERE id = '$orderId'";
+    $stmt = $pdo->query($sql);
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    //雙重回圈讀取資料並修改數量
+    foreach ($results as $result) {
+        $fname = $result["product"];
+        $fquantity = $result["quantity"];
+        $sql = "SELECT composition, quantity FROM menu_composition WHERE name = '$fname'";
+        $stmt = $pdo->query($sql);
+        $results2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($results2 as $result2) {
+            $fname2 = $result2["composition"];
+            $fquantity2 = $result2["quantity"];
+            $sql = "UPDATE food SET quantity = quantity - ('$fquantity' * '$fquantity2') WHERE name = '$fname2' ";
+            $stmt = $pdo->query($sql);
+        }
+    }
+
+
 
 echo json_encode(['status' => 'success']);
 ?>

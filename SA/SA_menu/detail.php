@@ -159,7 +159,7 @@
                     $orderId = $_GET["orderId"];
                     $sql = "UPDATE c_order SET isCheck = 1 WHERE id = $orderId";
                     $stmt = $pdo->query($sql);
-                    
+                    /*
                     //扣除庫存
                     $sql = "SELECT product, quantity FROM cart WHERE id = '$orderId'";
                     $stmt = $pdo->query($sql);
@@ -179,7 +179,7 @@
                             $stmt = $pdo->query($sql);
                         }
                     }
-
+                    */
                     //清除頁面緩存
                     header("Location: " . $_SERVER['PHP_SELF']);
                 }

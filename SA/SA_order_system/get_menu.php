@@ -11,7 +11,7 @@ if ($conn->connect_error) {
 }
 
 $conn->set_charset("utf8");
-$sql = "SELECT * FROM menu";
+$sql = "SELECT `category`,`name`,`price` FROM menu";
 $result = $conn->query($sql);
 
 $menu = [];

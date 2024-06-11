@@ -16,18 +16,21 @@
     padding: 20px;
   }
   
-  .menu-item {
+.menu-item {
     width: 250px;
+    height: 400px;
     margin: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
     overflow: hidden;
   }
-  
+
   .menu-item img {
     width: 100%;
-    height: auto;
+    height: 60%;
+    object-fit: cover;
   }
+
   
   .item-details {
     padding: 10px;
