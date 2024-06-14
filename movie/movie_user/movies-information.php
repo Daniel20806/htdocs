@@ -131,7 +131,7 @@
             echo "<p><strong>時長:</strong> " . $row['duration'] . "分鐘" . "</p>";
             echo "<p><strong>上映日期:</strong> " . $row['release_date'] . "</p>";
             //echo "<p><strong>簡介:</strong> " . $row['introduction'] . "</p>";
-            echo "<form action='movie_details.php' method='GET'>";
+            echo "<form action='../../1114576/test.php' method='GET'>";
             echo "<input type='hidden' name='name' value='" . $row['Name'] . "'>";
             echo "<button type='submit'>立即訂票</button>";
             echo "</form>";
