@@ -18,20 +18,25 @@
 
         .container {
             background-color: #fff;
-            padding: 20px;
+            padding: 40px;
+            /* 增加內邊距 */
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            width: 400px;
+            /* 增加容器寬度 */
         }
 
         h1 {
             text-align: center;
             color: #333;
+            margin-bottom: 20px;
+            /* 增加標題底部間距 */
         }
 
         label {
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
+            /* 增加標籤底部間距 */
             color: #555;
         }
 
@@ -39,21 +44,26 @@
         input[type="time"],
         select {
             width: calc(100% - 20px);
-            padding: 8px;
-            margin-bottom: 15px;
+            padding: 10px;
+            /* 增加內邊距 */
+            margin-bottom: 20px;
+            /* 增加底部間距 */
             border: 1px solid #ccc;
             border-radius: 4px;
             display: inline-block;
         }
 
         input[type="radio"] {
-            margin-right: 5px;
+            margin-right: 10px;
+            /* 增加右邊距 */
         }
 
         button {
             width: 100%;
-            padding: 10px;
-            background-color: #800080; /* 紫色 */
+            padding: 12px;
+            /* 增加內邊距 */
+            background-color: #800080;
+            /* 紫色 */
             border: none;
             border-radius: 4px;
             color: white;
@@ -62,13 +72,20 @@
         }
 
         button:hover {
-            background-color: #5a005a; /* 深紫色 */
+            background-color: #5a005a;
+            /* 深紫色 */
         }
 
         .message {
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            /* 增加底部間距 */
             color: green;
+        }
+        .back {
+            position: fixed;
+            top: 20px;
+            right: 40px;
         }
     </style>
     <script>
@@ -85,6 +102,7 @@
 
 <body>
     <div class="container">
+    <a class="back" href="./main.html"><img width="50" height="50" src="./image/home.png" alt="返回首頁"></a>
         <h1>新增場次</h1>
         <?php
         $host = 'localhost';
@@ -100,6 +118,22 @@
             $date = $_GET["date"];
             $time = $_GET["time"];
             $MName = $_GET["MName"];
+
+            $sql = "SELECT room, date, time FROM schedules";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($results as $row) {
+                if ($row["room"] == $theater && $row["date"] == $date && $row["time"] == $time . ':00') {
+                    echo "<div class='message' style='color: red;'>新增場次衝突。</div>";
+                    echo '<script>setTimeout(function() {
+                        window.location.href = "./schedules.php"; 
+                      }, 2000);
+                      </script>';
+                    exit;
+                }
+            }
 
             // 準備 SQL 語句
             $sql = "INSERT INTO schedules (room, date, time, name) VALUES (:theater, :date, :time, :movie_name)";
@@ -120,7 +154,7 @@
                 <input type="radio" name="theater" value="黃金廳" required> 黃金廳
             </label>
             <label>
-                日期（格式：MM-DD）
+                日期（格式：MM-DD
                 <input type="text" name="date" required onblur="validateDateFormat(this)">
             </label>
             <label>
@@ -140,7 +174,8 @@
                     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                     foreach ($results as $row): ?>
-                        <option value="<?= htmlspecialchars($row['name']); ?>"><?= htmlspecialchars($row['name']); ?></option>
+                        <option value="<?= htmlspecialchars($row['name']); ?>"><?= htmlspecialchars($row['name']); ?>
+                        </option>
                     <?php endforeach; ?>
                 </select>
             </label>
@@ -150,5 +185,3 @@
 </body>
 
 </html>
-
-
