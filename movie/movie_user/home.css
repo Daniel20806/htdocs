@@ -1,97 +1,102 @@
-* {
+/* home.css */
+
+/* 重置一些預設樣式 */
+body, h1, p, ul {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
-/* Set a background color for the entire page */
 body {
-    background-color: #f9f9f9;
     font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
 }
 
-/* Style the header */
+/* 頭部樣式 */
 header {
-    background-color: #6f42c1;
+    background: #4b0082; /* 深紫色 */
     color: #fff;
+    padding: 1rem 0;
     text-align: center;
-    padding: 1rem;
 }
 
-.hot-sale{
-    position:relative;
-    display: flex;
-    width:60%;
-    left: 20%;
-    height: 50px;
-    justify-content:space-between;
-    align-items: center;
-    background-color: aquamarine;
-}
-.hot-sale p{
-    position: relative;
-    font-size: 18px;
+header h1 {
+    margin: 0;
 }
 
-.container{
-    width: 70%;
-    height: 380px;
-    display: flex;
-    position: relative;
-    left: 15%;
-    justify-content: center;
-    gap: 20px;
+/* 導航樣式 */
+nav {
+    background: #6a0dad; /* 較淺的紫色 */
+    color: #fff;
+    padding: 0.5rem 0;
 }
 
-.container img{
-    width: 30%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 10px;
-    border: 2px solid gray;
-    transition: all ease-in-out 0.5s;
-}
-
-.container img:hover{
-    width:50%;
-}
-/* Style the navigation menu */
-nav{
-    border-bottom: #333;
-}
 nav ul {
     list-style: none;
-    display: flex;
-    justify-content: right;
-    background-color: #f9f9f9;
-    padding: 0.5rem;
+    text-align: center;
 }
 
-nav li {
-    margin-right: 1rem;
+nav ul li {
+    display: inline;
+    margin: 0 1rem;
 }
 
-nav a {
+nav ul li a {
+    color: #fff;
     text-decoration: none;
-    color: #6f42c1  ;
+    font-weight: bold;
 }
 
-/* Style the main content */
-main {
-    max-width: 800px;
-    margin: 0 auto;
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* 主要內容樣式 */
+.hot-sale {
+    background: #9370db; /* 另一個紫色 */
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+}
+
+.hot-sale a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.hot-sale a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     padding: 2rem;
 }
 
-/* Style the footer */
-footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    height: 45px;
-    width: 100%;
-    text-align: center;
-    background-color: #333;
-    color: #fff;
-    padding: 1rem;
+.container img {
+    margin: 1rem;
+    width: 250px; /* 調整圖片寬度 */
+    height: 375px; /* 調整圖片高度 */
+    cursor: pointer;
+    transition: transform 0.3s;
 }
+
+.container img:hover {
+    transform: scale(1.05);
+}
+
+/* 頁腳樣式 */
+footer {
+    background: #4b0082; /* 與頭部相同的深紫色 */
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
