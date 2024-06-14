@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>資管影城</title>
+    <link rel="stylesheet" href="ticket.css">
+</head>
+<body>
+    <header>
+        <h1>資管影城</h1>
+    </header>
+    <main>
+        <div class="movie-container">
+            <div class="movie-card">
+                <img src="image/poster1.jpg" alt="電影海報1" class="movie-poster">
+                <div class="movie-info">
+                    <h2 class="movie-title">你的名字</h2>
+                    <p class="movie-description">級別&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    普</p>
+                    <p class="movie-description">片長&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    100分</p>
+                    <p class="movie-description">上映日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    2024/06/13</p>
+                    <p class="movie-description">類型&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    動畫&nbsp;&nbsp;
+                                                    劇情</p>
+                    <p class="movie-description">演員&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    立花瀧&nbsp;&nbsp;
+                                                    宮水三葉</p>
+                    <p class="movie-description">導演&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    新海誠</p>
+                    <div class="date-selection">
+                        <button onclick="showTimes('2024-06-14')">6月14日 (五)</button>
+                        <button onclick="showTimes('2024-06-15')">6月15日 (六)</button>
+                        <button onclick="showTimes('2024-06-16')">6月16日 (日)</button>
+                        <button onclick="showTimes('2024-06-17')">6月17日 (一)</button>
+                    </div>
+                    <div class="showtimes">
+                        <p>選擇時段：</p>
+                        <div id="showtime-buttons-1" class="showtime-buttons">
+                            <!-- 時段按鈕會根據選擇的日期變動 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 可以添加更多電影卡片 -->
+        </div>
+    </main>
+    <script src="ticket.js"></script>
+</body>
+</html>
