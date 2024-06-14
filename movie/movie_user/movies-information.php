@@ -85,6 +85,7 @@
             margin-bottom: 10px;
             /* Add some space below the image */
         }
+
         .movie-card a {
             text-decoration: none;
             color: inherit;
@@ -98,7 +99,7 @@
 
 <body>
     <div class="header">電影資訊</div>
-    <a class="back" href="home.html"><img width="50" height="50" src="../movie_back/image/home.png" alt="返回首頁"></a>
+    <a class="back" href="home.php"><img width="50" height="50" src="../movie_back/image/home.png" alt="返回首頁"></a>
     <div class="container">
 
         <?php
@@ -120,7 +121,12 @@
             echo "<a href='movie_details.php?name=" . urlencode($row['Name']) . "'>";
             echo "<img src=../movie_back/" . $row['image'] . " alt='電影海報'>";
             echo "</a>";
-            echo "<p><strong>評價:</strong> " . $row['movie_rating'] . "</p>";
+            if ($row["movie_rating"] != NULL) {
+                echo "<p><strong>評價:</strong> " . number_format($row['movie_rating'], 1) . "</p>";
+            } else {
+                echo "<p><strong>評價:</strong> " . "尚無評分" . "</p>";
+            }
+            //echo "<p><strong>評價:</strong> " . $row['movie_rating'] . "</p>";
             echo "<p><strong>分級:</strong> " . $row['rated'] . "</p>";
             echo "<p><strong>時長:</strong> " . $row['duration'] . "分鐘" . "</p>";
             echo "<p><strong>上映日期:</strong> " . $row['release_date'] . "</p>";

@@ -4,8 +4,8 @@ session_start();
 
 // 資料庫連接參數
 $servername = "localhost";
-$username = "root"; 
-$password = "1114576"; 
+$username = "root";
+$password = "1114576";
 $dbname = "final";
 
 // 創建連接
@@ -35,8 +35,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // 驗證密碼
         if ($pass === $row['Password']) {
             // 設置 session 變量
-            $_SESSION['username'] = $user;
-            echo "Login successful. Welcome, " . $user . "!";
+            $_SESSION['usermail'] = $row['e_mail'];
+            $_SESSION['username'] = $row['Name'];
+            $_SESSION['userid'] = $row['ID'];
+            header("Location: home.php"); // 重定向到 home.php
+            exit();
         } else {
             echo "Invalid password.";
         }

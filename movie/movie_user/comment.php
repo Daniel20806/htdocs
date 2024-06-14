@@ -86,6 +86,7 @@
         .form-container button:hover {
             background-color: #5a34a1;
         }
+
         .back {
             position: fixed;
             top: 20px;
@@ -96,12 +97,14 @@
 
 <body>
     <div class="header">電影評論
-    <a class="back" href="./movies-information.php"><img width="50" height="50" src="../movie_back/image/home.png" alt="返回首頁"></a>
+        <a class="back" href="./movies-information.php"><img width="50" height="50" src="../movie_back/image/home.png"
+                alt="返回首頁"></a>
     </div>
-    
+
     <div class="container">
 
         <?php
+        session_start();
         $servername = "localhost";
         $username = "s1114580";
         $password = "1114580";
@@ -112,14 +115,17 @@
             $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            if (isset($_GET["button2"]) || isset($_GET["button3"])) {
+            if (isset($_GET["button2"]) || isset($_GET["button3"]) || isset($_GET["button5"])) {
                 if (isset($_GET["button2"])) {
                     $movie = $_GET["MName"];
-                } else {
+                } else if (isset($_GET["button3"])) {
                     $movie = $_GET["name"];
+                } else {
+                    $movie = $_GET["button5"];
                 }
                 // 查詢評論
-                $sql = "SELECT member_ID, context, time FROM comment WHERE Movie_name = :movie";
+                $sql = "SELECT member_ID, context, time FROM comment WHERE Movie_name = :movie
+                        ORDER BY time DESC";
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute(['movie' => $movie]);
 
@@ -127,7 +133,12 @@
 
                 foreach ($results as $row) {
                     echo "<div class='comment'>";
-                    echo "<h3>評論人: " . htmlspecialchars($row['member_ID']) . "</h3>";
+                    $ID = $row["member_ID"];
+                    $sql = "SELECT * FROM member WHERE ID = $ID";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute();
+                    $results2 = $stmt->fetch(PDO::FETCH_ASSOC);
+                    echo "<h3>評論人: " . $results2['Name'] . "</h3>";
                     echo "<p>" . htmlspecialchars($row['context']) . "</p>";
                     echo "<p class='comment-time'>評論時間: " . htmlspecialchars($row['time']) . "</p>";
                     echo "</div>";
@@ -136,7 +147,7 @@
                 die();
             }
 
-            if (isset($_GET["button4"])) {
+            if (isset($_GET["button4"]) && isset($_SESSION["userid"])) {
                 $name = isset($_GET['name']) ? htmlspecialchars($_GET['name']) : '未知電影';
 
                 echo '<dev class="form-container">
@@ -164,6 +175,14 @@
 
         <br><br>
     </form> </div>';
+            } else if (!isset($_SESSION["userid"])) {
+                echo '<form id="autoSubmitForm" action="./login.html" method="get">';
+                echo '<input type="hidden" name="button5" value="' . $name . '">';
+                echo '</form>';
+
+                echo '<script>';
+                echo 'document.getElementById("autoSubmitForm").submit();';
+                echo '</script>';
             }
 
             if (isset($_GET["MName"]) && isset($_GET["context"]) && isset($_GET["rating"])) {
@@ -174,9 +193,9 @@
                 $rating = $_GET["rating"];
 
                 // 插入新評論
-                $sql = "INSERT INTO comment (member_ID, Movie_name, time, context) VALUES (1, :name, :time, :context)";
+                $sql = "INSERT INTO comment (member_ID, Movie_name, time, context) VALUES (:userid, :name, :time, :context)";
                 $stmt = $pdo->prepare($sql);
-                $stmt->execute(['name' => $name, 'time' => $time, 'context' => $context]);
+                $stmt->execute(['userid' => $_SESSION["userid"], 'name' => $name, 'time' => $time, 'context' => $context]);
 
                 echo "<p>新增評論成功</p>";
 
@@ -188,8 +207,8 @@
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
                 $count = $result['count'];
 
-                echo "<p>電影 <strong>" . htmlspecialchars($name) . "</strong> 有 $count 條評論。</p>";
-
+                //echo "<p>電影 <strong>" . htmlspecialchars($name) . "</strong> 有 $count 條評論。</p>";
+        
                 // 評分處理
                 $sql = "SELECT movie_rating FROM movie WHERE Name = :name";
                 $stmt = $pdo->prepare($sql);
@@ -206,6 +225,13 @@
                 $sql = "UPDATE movie SET movie_rating = :final_rate WHERE Name = :name";
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute(['final_rate' => $final_rate, 'name' => $name]);
+                echo '<form id="autoSubmitForm" action="./comment.php" method="get">';
+                echo '<input type="hidden" name="button5" value="' . $name . '">';
+                echo '</form>';
+
+                echo '<script>';
+                echo 'document.getElementById("autoSubmitForm").submit();';
+                echo '</script>';
             }
 
         } catch (PDOException $e) {

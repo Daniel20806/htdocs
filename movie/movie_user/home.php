@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Awesome Website</title>
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+    <?php
+    session_start();
+    ?>
+    <header>
+        <h1>詐騙影城</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#">主頁</a></li>
+            <li><a href="#">關於我們</a></li>
+            <li><a href="./movies-information.php">電影資訊</a></li>
+            <li>
+                <?php
+                if (isset($_SESSION['userid'])) {
+                    echo '<a href="logout.php">登出 (' . htmlspecialchars($_SESSION['username']) . ')</a>';
+                } else {
+                    echo '<a href="Login.html">登入</a>';
+                }
+                ?>
+            </li>
+        </ul>
+    </nav>
+    <div class="hot-sale">
+        <p>現正熱映<p>
+        <p><a href="movies-information.php">瀏覽所有電影></a></p>
+    </div>
+    <main>
+        <div class="container">
+            <img src="photo/movie_1.jpg" alt="movie" onclick="location.href='movie_1.html';">
+            <img src="photo/movie_2.jpg" alt="movie" onclick="location.href='movie_1.html';">
+            <img src="photo/movie_3.jpg" alt="movie" onclick="location.href='movie_1.html';">
+            <img src="photo/movie_4.jpg" alt="movie" onclick="location.href='movie_1.html';">
+            <img src="photo/movie_5.jpg" alt="movie" onclick="location.href='movie_1.html';">
+        </div>
+        <section>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 My Awesome Website 版權所有不得轉載</p>
+    </footer>
+</body>
+</html>

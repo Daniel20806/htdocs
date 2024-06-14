@@ -89,7 +89,11 @@ if ($row) {
     echo "<img src='../movie_back/" . htmlspecialchars($row['image']) . "' alt='電影海報'>";
     echo "<div class='movie-details'>";
     echo "<h2>" . htmlspecialchars($row['Name']) . "</h2>";
-    echo "<p><strong>評價:</strong> " . htmlspecialchars($row['movie_rating']) . "</p>";
+    if ($row["movie_rating"] != NULL) {
+        echo "<p><strong>評價:</strong> " . number_format($row['movie_rating'], 1) . "</p>";
+    } else {
+        echo "<p><strong>評價:</strong> " . "尚無評分" . "</p>";
+    }
     echo "<p><strong>分級:</strong> " . htmlspecialchars($row['rated']) . "</p>";
     echo "<p><strong>時長:</strong> " . htmlspecialchars($row['duration']) . "分鐘</p>";
     echo "<p><strong>上映日期:</strong> " . htmlspecialchars($row['release_date']) . "</p>";
