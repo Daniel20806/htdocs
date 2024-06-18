@@ -141,6 +141,13 @@
 
             // 執行 SQL 語句
             if ($stmt->execute([':theater' => $theater, ':date' => $date, ':time' => $time, ':movie_name' => $MName])) {
+                for ($i = 1; $i <= 8; $i++) {
+                    for ($j=1; $j <= 8; $j++) { 
+                        $sql = "INSERT INTO seat_fuck VALUES (:date, :time, :row, :column, :status)";
+                        $stmt = $pdo->prepare($sql);
+                        $stmt->execute([':date' => $date, ':time' => $time, ':row' => $i, ':column' => $j, ':status' => 'available']);
+                    }
+                }
                 echo "<div class='message'>新增場次成功！</div>";
             } else {
                 echo "<div class='message' style='color: red;'>新增場次失敗。</div>";
