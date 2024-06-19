@@ -58,6 +58,11 @@
         form button:hover {
             background-color: #5a34a1;
         }
+        .back {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+        }
     </style>
 </head>
 <body>
@@ -104,7 +109,9 @@
         $conn->close();
     }
     ?>
-    <div class="header">新增電影</div>
+    <div class="header">新增電影
+        <a class="back" href="./main.html"><img width="50" height="50" src="./image/home.png" alt="返回首頁"></a>
+    </div>
     <div class="container">
         <form action="./movies_add.php" method="post" enctype="multipart/form-data">
             <label for="MName">新增電影名稱：</label>

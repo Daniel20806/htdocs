@@ -4,16 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>刪除電影</title>
+    <title>刪除票種</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             height: 100vh;
             margin: 0;
+        }
+
+        .header {
+            background-color: #6f42c1;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 2em;
+            font-weight: bold;
+            width: 100%;
+            box-sizing: border-box;
+            position: relative;
         }
 
         .form-container {
@@ -24,6 +36,7 @@
             max-width: 400px;
             width: 100%;
             text-align: center;
+            margin-top: 20px;
         }
 
         .form-container h1 {
@@ -58,6 +71,7 @@
         .form-container button:hover {
             background-color: #5a34a1;
         }
+
         .back {
             position: absolute;
             top: 20px;
@@ -67,7 +81,11 @@
 </head>
 
 <body>
-<a class="back" href="./main.html"><img width="50" height="50" src="./image/home.png" alt="返回首頁"></a>
+    <div class="header">
+        刪除票種
+        <a class="back" href="./main.html"><img width="50" height="50" src="./image/home.png" alt="返回首頁"></a>
+    </div>
+
     <?php
     $host = 'localhost';
     $db = 'final';
@@ -77,31 +95,34 @@
     // 建立連接
     $pdo = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
 
-    if (isset($_GET["MName"]) && !empty($_GET["MName"])) {
-        $MName = $_GET["MName"];
-
+    if (isset($_GET["Name"]) && !empty($_GET["Name"])) {
+        $Name = $_GET["Name"];
         // 準備SQL語句
-        $sql = "DELETE FROM movie WHERE name = :name";
+        $sql = "DELETE FROM ticket WHERE Name = :Name";
         $stmt = $pdo->prepare($sql);
 
         // 執行SQL語句
-        if ($stmt->execute([':name' => $MName])) {
-            echo "<div class='form-container'><p>成功刪除 $MName</p></div>";
+        if ($stmt->execute([':Name' => $Name])) {
+            echo "<div class='form-container'><p>成功刪除 $Name</p></div>";
         } else {
             echo "<div class='form-container'><p>刪除失敗</p></div>";
         }
         //清除頁面緩存
-        header("Location: " . $_SERVER['PHP_SELF']);
+        echo '<script>setTimeout(function() {
+            window.location.href = "./ticket_rm.php"; 
+          }, 2000);
+          </script>';
     }
     ?>
+
     <div class="form-container">
-        <h1>刪除電影</h1>
-        <form action="./movie_rm.php" method="get">
-            <label for="MName">刪除電影名稱：</label>
-            <select name="MName" id="MName" required>
+
+        <form action="./ticket_rm.php" method="get">
+            <label for="Name">刪除票種名稱：</label>
+            <select name="Name" id="Name" required>
                 <?php
                 // 執行SQL查詢
-                $sql = 'SELECT name FROM movie';
+                $sql = 'SELECT Name FROM ticket';
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute();
 
@@ -109,7 +130,7 @@
                 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 foreach ($results as $row): ?>
-                    <option value="<?= $row['name']; ?>"><?= $row['name']; ?></option>
+                    <option value="<?= $row['Name']; ?>"><?= $row['Name']; ?></option>
                 <?php endforeach; ?>
             </select>
             <button type="submit">確認</button>

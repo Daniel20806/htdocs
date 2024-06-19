@@ -192,6 +192,19 @@
                 $context = $_GET["context"];
                 $rating = $_GET["rating"];
 
+                //評論人重複檢測
+                $sql = "SELECT COUNT(*) FROM comment WHERE member_ID = :id AND Movie_name = :name";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute([':id' => $_SESSION['userid'], ':name' => $name]);
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                if ($row && $row['COUNT(*)'] > 0) {
+                    echo'你已經評論過了';
+                    echo '<script>setTimeout(function() {
+                        window.location.href = "./movies-information.php"; 
+                      }, 2000);
+                      </script>';
+                      exit();
+                    }
                 // 插入新評論
                 $sql = "INSERT INTO comment (member_ID, Movie_name, time, context) VALUES (:userid, :name, :time, :context)";
                 $stmt = $pdo->prepare($sql);

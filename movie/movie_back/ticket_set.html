@@ -167,22 +167,24 @@
         <div class="title">
             電影院控制台
             <button id="busyButton">閒置中</button>
-            <button class="settin_big" onclick="changeFontSize('big')"><img width="35" height="35"
-                    src="./image/a.png" /></button>
-            <button class="settin_small" onclick="changeFontSize('small')"><img width="30" height="30"
-                    src="./image/a.png" /></button>
+            <button class="settin_big" onclick="changeFontSize('big')">
+                <img width="35" height="35" src="./image/a.png" />
+            </button>
+            <button class="settin_small" onclick="changeFontSize('small')">
+                <img width="30" height="30" src="./image/a.png" />
+            </button>
         </div>
-        <div id="cirs" class="cirs"> <!--編輯on&off-->
+        <div id="cirs" class="cirs">
+            <!-- 編輯 on&off -->
             <div class="circle" onclick="toggle()"></div>
         </div>
     </div>
     <div class="container" id="container">
-        <div class="block" draggable="false" id="block1" onclick="location.href='./movie_set.html'">電影更新</div>
-        <div class="block" draggable="false" id="block2" onclick="location.href='seat.php'">訂單處理</div>
-        <div class="block" draggable="false" id="block3" onclick="location.href='ticket_set.html'">票種管理</div>
-        <div class="block" draggable="false" id="block4" onclick="location.href='schedules.php'">新增場次</div>
+        <div class="block" draggable="false" id="block1" onclick="location.href='./ticket_add.php'">新增票種</div>
+        <div class="block" draggable="false" id="block2" onclick="location.href='./ticket_rm.php'">刪除票種</div>
+        <div class="block" draggable="false" id="block3" onclick="location.href='./ticket_edit.php'">修改票種</div>
+        <div class="block" draggable="false" id="block4" onclick="location.href='./main.html'">回到前頁</div>
     </div>
-
 
     <script>
         function toggle() {

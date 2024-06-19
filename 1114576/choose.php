@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>购买电影票</title>
+    <title>選取座位</title>
     <style>
         * {
             margin: 0;
@@ -73,12 +73,13 @@
 
         .right-con {
             width: 350px;
-            height: 90vh;
+            height: 50vh;
             position: absolute;
             right: 0;
             top: 5%;
             line-height: 28px;
         }
+
 
         #seatNumbers {
             width: 240px;
@@ -117,24 +118,54 @@
         </div>
 
         <div class="right">
-            <ul class="right-con">
-                <li>影片：<span>后来的我们</span></li>
-                <li>时间：<span>5月1日&nbsp;21:00</span></li>
-                <li>票价：<span>50元</span></li>
-                <li>座位：<p id="seatNumbers"></p></li>
-                <li>票数：<span></span></li>
-                <li>总计：<span></span></li>
-                <button>确认购买</button>
-            </ul>
+            
         </div>
     </div>
 
     <script>
+        function test() {
+            const rightConElement = document.querySelector('.right');
+            const test = document.createElement('ul');
+
+            const date = localStorage.getItem('date'); // 假設格式為 "XX:XX"
+            const time = localStorage.getItem('time'); // 假設格式為 "HH:MM"
+            const buyItem = localStorage.getItem('buyItems');
+            const totalprice = localStorage.getItem('totalprice');
+
+            // 將 date 格式化為 "X月X日"
+            const [month, day] = date.split('-');
+            const formattedDate = `${parseInt(month)}月${parseInt(day)}日`;
+
+            // 將 time 格式化為 "HH:MM"
+            const formattedTime = time;
+
+            test.classList.add('right-con');
+            test.innerHTML = `
+                <li>影片：<span><?php session_start(); echo $_SESSION['name']; ?></span></li>
+                <li>時間：<span>${formattedDate} ${formattedTime}</span></li>
+                <li>影廳：<span><?php echo $_SESSION['room']; ?></span></li>
+                <li>座位：<p id="seatNumbers"></p></li>
+                <li>票種資訊：<span>${buyItem}</span></li>
+                <li>總計：<span>${totalprice}</span></li>
+                <button>確認購買</button>
+            `;
+
+            rightConElement.appendChild(test);
+        }
+
+
         //網頁加載完成後 執行
         document.addEventListener('DOMContentLoaded', function () {
+            //localStorage.setItem("clicked", parseInt(0));
+            test();
             const seatList = document.querySelector('.seat');
+            const date = localStorage.getItem("date");
+            const time = localStorage.getItem("time");
+            const buyItem = localStorage.getItem('buyItems');
+            const totalprice = localStorage.getItem('totalprice');
+
             //發送一個 HTTP 請求到 get_seats.php 這個 PHP 文件
-            fetch('get_seats.php')
+            fetch(`get_seats.php?date=${date}&time=${time}`)
                 .then(response => response.json())
                 .then(data => {
                     //生成座位編號
@@ -183,9 +214,11 @@
                         }
                         updateSelectedSeats();
                     } else {
-                        seat.style.backgroundColor = 'red';
-                        selectedSeats.push(seat.innerText);
-                        updateSelectedSeats();
+                        if(selectedSeats.length != localStorage.getItem("totalCount")){
+                            seat.style.backgroundColor = 'red';
+                            selectedSeats.push(seat.innerText);
+                            updateSelectedSeats();
+                        }
                     }
                 });
             }
@@ -199,14 +232,23 @@
                     numberP.appendChild(seatInfo);
                     seatNumbers.appendChild(numberP);
                 });
-
-                document.querySelector('.right-con li:nth-child(5) span').innerText = selectedSeats.length;
-                let total = selectedSeats.length * 50;
-                document.querySelector('.right-con li:nth-child(6) span').innerText = '￥' + total;
+                localStorage.setItem('selectedSeats', JSON.stringify(selectedSeats));
             }
-            //button被點擊
+
+            //購買被點擊
             document.querySelector('button').addEventListener('click', () => {
-                fetch('book_seats.php', {
+                fetch(`order.php?date=${date}&time=${time}&buyItem=${buyItem}&totalprice=${totalprice}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        selectedSeats: selectedSeats
+                    })
+                })
+                .catch(error => console.error('Error:', error));
+
+                fetch(`book_seats.php?date=${date}&time=${time}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -220,11 +262,14 @@
                     if (data.success) {
                         alert('購買成功！');
                         window.location.reload();
+                        window.location.href='detail.php';
+                        localStorage.setItem("totalCount", 0);
                     } else {
                         alert('購買失敗，請重試。');
                     }
                 })
                 .catch(error => console.error('Error:', error));
+
             });
         });
     </script>
