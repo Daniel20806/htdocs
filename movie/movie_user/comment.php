@@ -177,12 +177,13 @@
     </form> </div>';
             } else if (!isset($_SESSION["userid"])) {
                 echo '<form id="autoSubmitForm" action="./login.html" method="get">';
-                echo '<input type="hidden" name="button5" value="' . $name . '">';
+                echo '<input type="hidden" name="button5" value="">';
                 echo '</form>';
 
                 echo '<script>';
                 echo 'document.getElementById("autoSubmitForm").submit();';
                 echo '</script>';
+                echo 'exit()';
             }
 
             if (isset($_GET["MName"]) && isset($_GET["context"]) && isset($_GET["rating"])) {

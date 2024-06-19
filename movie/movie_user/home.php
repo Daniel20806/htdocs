@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Awesome Website</title>
+    <title>主頁</title>
     <link rel="stylesheet" href="home.css">
 </head>
 <body>
@@ -21,7 +21,9 @@
             <li>
                 <?php
                 if (isset($_SESSION['userid'])) {
-                    echo '<a href="logout.php">登出 (' . htmlspecialchars($_SESSION['username']) . ')</a>';
+                    echo '<a href="logout.php">登出 (' . htmlspecialchars($_SESSION['username']) . ')</a></li>';
+                    echo '<li><a href="../movie_back/detail_more.php?member_id='. $_SESSION['userid'] . '" name="'. htmlspecialchars($_SESSION['username']) .'">我的訂單</a>'; 
+
                 } else {
                     echo '<a href="Login.html">登入</a>';
                 }
@@ -35,11 +37,11 @@
     </div>
     <main>
         <div class="container">
-            <img src="photo/movie_1.jpg" alt="movie" onclick="location.href='movie_1.html';">
-            <img src="photo/movie_2.jpg" alt="movie" onclick="location.href='movie_1.html';">
-            <img src="photo/movie_3.jpg" alt="movie" onclick="location.href='movie_1.html';">
-            <img src="photo/movie_4.jpg" alt="movie" onclick="location.href='movie_1.html';">
-            <img src="photo/movie_5.jpg" alt="movie" onclick="location.href='movie_1.html';">
+            <img src="photo/movie_1.jpg" alt="movie" onclick="location.href='movie_details.php?name=劇場版+排球少年%21%21+垃圾場的決戰';">
+            <img src="photo/movie_2.jpg" alt="movie" onclick="location.href='movie_details.php?name=幻幻之交';">
+            <img src="photo/movie_3.jpg" alt="movie" onclick="location.href='movie_details.php?name=猩球崛起：王國誕生';">
+            <img src="photo/movie_4.jpg" alt="movie" onclick="location.href='movie_details.php?name=芙莉歐莎：瘋狂麥斯傳奇篇章';">
+            <img src="photo/movie_5.jpg" alt="movie" onclick="location.href='movie_details.php?name=特技玩家';">
         </div>
         <section>
         </section>

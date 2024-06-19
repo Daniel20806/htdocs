@@ -11,7 +11,9 @@
 <body>
     <header>
         <h1>訂購完成</h1>
+        
     </header>
+    <a class="back" href="./home.php"><img width="50" height="50" src="../movie_back/image/home.png" alt="返回首頁"></a>
     <main>
         <div id="cartContainer">
             <h2>訂單編號</h2>

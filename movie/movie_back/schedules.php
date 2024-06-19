@@ -82,6 +82,7 @@
             /* 增加底部間距 */
             color: green;
         }
+
         .back {
             position: fixed;
             top: 20px;
@@ -91,18 +92,29 @@
     <script>
         function validateDateFormat(input) {
             const datePattern = /^\d{2}-\d{2}$/;
-            if (!datePattern.test(input.value)) {
-                alert('日期格式不正確，請使用MM-DD格式');
-                input.value = '';
-                input.focus();
+            let errorMessage = input.parentNode.querySelector('.date-error'); // 使用类名选择错误信息
+
+            if (!datePattern.test(input.value) && input.value !== "") { // 判断输入框是否为空
+                if (!errorMessage) {
+                    errorMessage = document.createElement('div');
+                    errorMessage.classList.add('date-error');
+                    errorMessage.textContent = '日期格式不正確，請使用MM-DD格式';
+                    errorMessage.style.color = 'red';
+                    input.parentNode.insertBefore(errorMessage, input.nextSibling);
+                }
+            } else {
+                if (errorMessage) {
+                    errorMessage.remove();
+                }
             }
         }
+
     </script>
 </head>
 
 <body>
     <div class="container">
-    <a class="back" href="./main.html"><img width="50" height="50" src="./image/home.png" alt="返回首頁"></a>
+        <a class="back" href="./main.html"><img width="50" height="50" src="./image/home.png" alt="返回首頁"></a>
         <h1>新增場次</h1>
         <?php
         $host = 'localhost';
@@ -142,7 +154,7 @@
             // 執行 SQL 語句
             if ($stmt->execute([':theater' => $theater, ':date' => $date, ':time' => $time, ':movie_name' => $MName])) {
                 for ($i = 1; $i <= 8; $i++) {
-                    for ($j=1; $j <= 8; $j++) { 
+                    for ($j = 1; $j <= 8; $j++) {
                         $sql = "INSERT INTO seat_fuck VALUES (:date, :time, :row, :column, :room, :status)";
                         $stmt = $pdo->prepare($sql);
                         $stmt->execute([':date' => $date, ':time' => $time, ':row' => $i, ':column' => $j, ':room' => $theater, ':status' => 'available']);
